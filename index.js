@@ -65,7 +65,7 @@ app.get('/requetes', function (req, res, next) {
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);
-    res.status(500).send({success: false, result: 'Ca coince", order: req.query, ip: myIp});
+    res.status(500).send({success: false, result: 'Ca coince', order: req.query, ip: myIp});
 });
 
 app.listen(port, host);
