@@ -8,9 +8,9 @@ const mongo = require('mongodb').MongoClient;
 
 app.get('/ticket', function(req, res, next) {
     let newTicketNumber = 125391;
-	console.log('avant myip')
-    let myIp = "x";
-	console.log(myIp)
+    var os = require( 'os' );
+    var networkInterfaces = os.networkInterfaces();
+    var myIp = networkInterfaces['eth0'][0]['address'];
     mongo.connect(dbConnectionUrl, (err, client) => {
 	if (err) {
 	    console.error(err);
