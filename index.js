@@ -7,7 +7,6 @@ const dbName = process.env.MONGODB_DBNAME || 'sampledb';
 const mongo = require('mongodb').MongoClient;
 const myIp = (require('os').networkInterfaces())['eth0'][0]['address'];
 
-
 app.get('/ticket', function(req, res, next) {
     let newTicketNumber = 125391;    
     mongo.connect(dbConnectionUrl, (err, client) => {
