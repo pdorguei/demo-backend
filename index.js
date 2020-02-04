@@ -9,7 +9,7 @@ const mongo = require('mongodb').MongoClient;
 app.get('/ticket', function(req, res, next) {
     let newTicketNumber = 125391;
 	console.log('avant myip')
-    let myIp = self.location.origin;
+    let myIp = "x";
 	console.log(myIp)
     mongo.connect(dbConnectionUrl, (err, client) => {
 	if (err) {
