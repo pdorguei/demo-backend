@@ -8,7 +8,9 @@ const mongo = require('mongodb').MongoClient;
 
 app.get('/ticket', function(req, res, next) {
     let newTicketNumber = 125391;
+	console.log('avant myip')
     let myIp = self.location.origin;
+	console.log(myIp)
     mongo.connect(dbConnectionUrl, (err, client) => {
 	if (err) {
 	    console.error(err);
@@ -64,7 +66,7 @@ app.get('/requetes', function (req, res, next) {
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);
-    res.status(500).send('Ca coince.')
+    res.status(500).send('Ca coince.');
 });
 
 app.listen(port, host);
