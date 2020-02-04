@@ -5,16 +5,15 @@ const port = process.env.PORT || 8080;
 const dbConnectionUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/sampledb';
 const dbName = process.env.MONGODB_DBNAME || 'sampledb';
 const mongo = require('mongodb').MongoClient;
+const myIp = (require('os').networkInterfaces())['eth0'][0]['address'];
+
 
 app.get('/ticket', function(req, res, next) {
-    let newTicketNumber = 125391;
-    var os = require( 'os' );
-    var networkInterfaces = os.networkInterfaces();
-    var myIp = networkInterfaces['eth0'][0]['address'];
+    let newTicketNumber = 125391;    
     mongo.connect(dbConnectionUrl, (err, client) => {
 	if (err) {
 	    console.error(err);
-	    res.send({success: false, result: 9999});
+	    res.send({success: false, result: 1, order: '', ip: myIp});
 	} else {
 	    const db = client.db(dbName);
 	    const collection = db.collection('requetes');
@@ -36,7 +35,7 @@ app.get('/ticket', function(req, res, next) {
 		}
 	    }).catch((err) => {
 		console.log(err);
-		res.send({success: false, result: 999});
+		res.send({success: false, result: 2, order: req.query, ip: myIp});
 	    });
 	} 		
     });	
@@ -60,13 +59,13 @@ app.get('/requetes', function (req, res, next) {
 	});
     })
     console.log(ordersList);		
-    res.send({success: true, result: ordersList});
+    res.send({success: true, result: ordersList, order: req.query, ip: myIp});
     
 });
 
 app.use(function(err, req, res, next) {
     console.error(err.stack);
-    res.status(500).send('Ca coince.');
+    res.status(500).send({success: false, result: 'Ca coince", order: req.query, ip: myIp});
 });
 
 app.listen(port, host);
